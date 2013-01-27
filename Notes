@@ -1,0 +1,62 @@
+00 (Reset Front)
+> 10 02 43 30 30 10 03 40
+  DL ST C  0  0  DL ET 
+< 10 06
+> 10 05
+> 10 02 50 30 30 30 30 10 03 53 (Positiv)
+
+01 (Reset Rear)
+> 10 02 43 30 31 10 03 41
+< 10 06
+> 10 05
+< 10 02 50 30 31 30 30 10 03 52 (Positiv)
+
+Wait for insert
+> 10 02 43 3A 30 10 03 4A
+< 10 06 
+> 10 05
+< 10 02 50 3A 30 30 30 10 03 59 (Positiv)
+
+Read Track 1
+> 10 02 43 36 31 10 03 47
+< 10 06
+> 10 05
+> 10 02 50 36 31 30 32 42 33 34 35 32 34 36 31 32 36 5E 4D 41 52 54 49 4E 20 47 52 4F 53 53 5E 30 30 30 30 5E 30 39 31 32 30 39 31 32 41 31 50 10 03 2A (Negativ)
+
+Read Track 2
+> 10 02 43 36 32 10 03 44
+< 10 06
+> 10 05
+< 10 02 50 36 32 30 32 33 34 35 32 34 36 31 32 36 3D 30 30 30 30 10 03 5F (Positiv)
+
+Read Track 3 (empty)
+> 10 02 43 36 33 10 03 45
+< 10 06
+> 10 05
+< 10 02 4E 36 33 34 34 10 03 48 (Negativ)
+
+DLE STX	10 02	Start
+DLE ETX	10 03	Ende
+DLE ENQ 10 05	Kommando ausführen/Antwort übermitteln
+DLE ACK	10 06	ACK
+DLE NAK	10 15	NACK
+DLE EOT	10 04	Abbruch
+DLE     10	Transparent Mode
+
+DLE / STX / Text / DLE / ETX / BCC
+
+BCC = Text (ohne DLE Transparent) + ETX 
+
+43 = C "Command"
+50 = P "Positive Response"
+4E = N "Negative Response"
+
+>>> 0x43^0x30^0x30^0x03
+64
+>>> hex(64)
+'0x40'
+
+>>> "0".encode("hex")
+'30'
+
+
